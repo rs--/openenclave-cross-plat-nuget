@@ -17,16 +17,11 @@ mkdir -p $OPTEE_RELEASE_QEMU_ARMV8_OUT_PATH
 mkdir -p $OPTEE_RELEASE_GRAPEBOARD_OUT_PATH
 
 # SDK Build Output (SGX)
-SDK_DEBUG_SGX_LEGACY_OUT_PATH=$PWD/build/$OS_CODENAME/sdk/sgx/legacy/debug
-SDK_DEBUG_SGX_FLC_OUT_PATH=$PWD/build/$OS_CODENAME/sdk/sgx/flc/debug
+SDK_DEBUG_SGX_DEFAULT_OUT_PATH=$PWD/build/$OS_CODENAME/sdk/sgx/default/debug
+SDK_RELEASE_SGX_DEFAULT_OUT_PATH=$PWD/build/$OS_CODENAME/sdk/sgx/default/release
 
-SDK_RELEASE_SGX_LEGACY_OUT_PATH=$PWD/build/$OS_CODENAME/sdk/sgx/legacy/release
-SDK_RELEASE_SGX_FLC_OUT_PATH=$PWD/build/$OS_CODENAME/sdk/sgx/flc/release
-
-mkdir -p $SDK_DEBUG_SGX_LEGACY_OUT_PATH
-mkdir -p $SDK_DEBUG_SGX_FLC_OUT_PATH
-mkdir -p $SDK_RELEASE_SGX_LEGACY_OUT_PATH
-mkdir -p $SDK_RELEASE_SGX_FLC_OUT_PATH
+mkdir -p $SDK_DEBUG_SGX_DEFAULT_OUT_PATH
+mkdir -p $SDK_RELEASE_SGX_DEFAULT_OUT_PATH
 
 # SDK Build Output (OP-TEE)
 SDK_DEBUG_OPTEE_QEMU_ARMV8_OUT_PATH=$PWD/build/$OS_CODENAME/sdk/optee/3.6.0/vexpress-qemu_armv8a/debug
@@ -170,13 +165,14 @@ fi
 ## Build SDK (SGX)
 ## ========================================
 
-# Build the SDK for Intel SGX Legacy Debug
-echo "Building: SDK/SGX/Legacy/Debug" >> runner.$OS_CODENAME
-pushd $SDK_DEBUG_SGX_LEGACY_OUT_PATH
-cmake -G Ninja $OE_SDK_PATH                         \
-    -DCMAKE_BUILD_TYPE=Debug                        \
-    -DHAS_QUOTE_PROVIDER=OFF                        \
-    -DCMAKE_INSTALL_PREFIX:PATH='/opt/openenclave'  \
+# Build the SDK for Intel SGX Default Debug
+echo "Building: SDK/SGX/Default/Debug" >> runner.$OS_CODENAME
+pushd $SDK_DEBUG_SGX_DEFAULT_OUT_PATH
+cmake -G Ninja $OE_SDK_PATH                                  \
+    -DLVI_MITIGATION=ControlFlow                             \
+    -DLVI_MITIGATION_BINDIR=/usr/local/lvi-mitigation/bin    \
+    -DCMAKE_BUILD_TYPE=Debug                                 \
+    -DCMAKE_INSTALL_PREFIX:PATH='/opt/openenclave'           \
     -DCPACK_GENERATOR=DEB || exit 1
 ninja package || exit 1
 
@@ -187,47 +183,14 @@ tar xf data.tar || exit 1
 popd
 popd  # SDK Build Done
 
-# Build the SDK for Intel SGX FLC Debug
-echo "Building: SDK/SGX/FLC/Debug" >> runner.$OS_CODENAME
-pushd $SDK_DEBUG_SGX_FLC_OUT_PATH
-cmake -G Ninja $OE_SDK_PATH                         \
-    -DCMAKE_BUILD_TYPE=Debug                        \
-    -DHAS_QUOTE_PROVIDER=ON                         \
-    -DCMAKE_INSTALL_PREFIX:PATH='/opt/openenclave'  \
-    -DCPACK_GENERATOR=DEB || exit 1
-ninja package || exit 1
-
-mkdir expand
-pushd expand
-7z x ../*.deb || exit 1
-tar xf data.tar || exit 1
-popd
-popd  # SDK Build Done
-
-# Build the SDK for Intel SGX Legacy Release
-echo "Building: SDK/SGX/Legacy/Release" >> runner.$OS_CODENAME
-pushd $SDK_RELEASE_SGX_LEGACY_OUT_PATH
-cmake -G Ninja $OE_SDK_PATH                         \
-    -DCMAKE_BUILD_TYPE=Release                       \
-    -DHAS_QUOTE_PROVIDER=OFF                        \
-    -DCMAKE_INSTALL_PREFIX:PATH='/opt/openenclave'  \
-    -DCPACK_GENERATOR=DEB || exit 1
-ninja package || exit 1
-
-mkdir expand
-pushd expand
-7z x ../*.deb || exit 1
-tar xf data.tar || exit 1
-popd
-popd  # SDK Build Done
-
-# Build the SDK for Intel SGX FLC Release
-echo "Building: SDK/SGX/FLC/Release" >> runner.$OS_CODENAME
-pushd $SDK_RELEASE_SGX_FLC_OUT_PATH
-cmake -G Ninja $OE_SDK_PATH                         \
-    -DCMAKE_BUILD_TYPE=Release                      \
-    -DHAS_QUOTE_PROVIDER=ON                         \
-    -DCMAKE_INSTALL_PREFIX:PATH='/opt/openenclave'  \
+# Build the SDK for Intel SGX Default Release
+echo "Building: SDK/SGX/Default/Release" >> runner.$OS_CODENAME
+pushd $SDK_RELEASE_SGX_DEFAULT_OUT_PATH
+cmake -G Ninja $OE_SDK_PATH                                  \
+    -DLVI_MITIGATION=ControlFlow                             \
+    -DLVI_MITIGATION_BINDIR=/usr/local/lvi-mitigation/bin    \
+    -DCMAKE_BUILD_TYPE=Release                               \
+    -DCMAKE_INSTALL_PREFIX:PATH='/opt/openenclave'           \
     -DCPACK_GENERATOR=DEB || exit 1
 ninja package || exit 1
 

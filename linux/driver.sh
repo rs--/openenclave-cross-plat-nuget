@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OE_SDK_TAG=v0.8.1
+OE_SDK_TAG=v0.11.0-rc1
 
 # Clone the SDK
 if [ ! -d sdk ]; then

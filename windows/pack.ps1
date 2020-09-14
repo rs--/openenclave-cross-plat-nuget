@@ -1,11 +1,8 @@
 ﻿$ErrorActionPreference = "Stop"
 
 $LibCopyRules = @(
-    New-Object PSObject -Property @{Source="$PWD\Build\Legacy\Debug";Destination="$PWD\Pack\lib\native\win\sgx\legacy\debug"}
-    New-Object PSObject -Property @{Source="$PWD\Build\Legacy\Release";Destination="$PWD\Pack\lib\native\win\sgx\legacy\release"}
-
-    New-Object PSObject -Property @{Source="$PWD\Build\FLC\Debug";Destination="$PWD\Pack\lib\native\win\sgx\flc\debug"}
-    New-Object PSObject -Property @{Source="$PWD\Build\FLC\Release";Destination="$PWD\Pack\lib\native\win\sgx\flc\release"}
+    New-Object PSObject -Property @{Source="$PWD\Build\Default\Debug";Destination="$PWD\Pack\lib\native\win\sgx\default\debug"}
+    New-Object PSObject -Property @{Source="$PWD\Build\Default\Release";Destination="$PWD\Pack\lib\native\win\sgx\default\release"}
 )
 
 If (Test-Path Pack)
@@ -34,7 +31,7 @@ Function Copy-Tools([String]$SgxPlatform)
     Push-Location $PWD\Build\$SgxPlatform\Release\_CPack_Packages\win64\NuGet
     $Bin = (Get-ChildItem -Recurse bin)
     Pop-Location
-    Copy-Item -Path "$($Bin.FullName)\*" -Destination .\Pack\tools\win\legacy -Recurse -Force
+    Copy-Item -Path "$($Bin.FullName)\*" -Destination .\Pack\tools\win\default -Recurse -Force
 }
 
 Function Copy-Includes([String]$SgxPlatform, [String]$BuildType)
@@ -47,29 +44,16 @@ Function Copy-Includes([String]$SgxPlatform, [String]$BuildType)
 }
 
 
-New-Item -ItemType Directory -Path Pack\build\native\win\sgx\legacy\debug | Out-Null
-New-Item -ItemType Directory -Path Pack\build\native\win\sgx\legacy\release | Out-Null
+New-Item -ItemType Directory -Path Pack\build\native\win\sgx\default\debug | Out-Null
+New-Item -ItemType Directory -Path Pack\build\native\win\sgx\default\release | Out-Null
 
-New-Item -ItemType Directory -Path Pack\build\native\win\sgx\flc\debug | Out-Null
-New-Item -ItemType Directory -Path Pack\build\native\win\sgx\flc\release | Out-Null
+New-Item -ItemType Directory -Path Pack\lib\native\win\sgx\default\debug\enclave\clang-7 | Out-Null
+New-Item -ItemType Directory -Path Pack\lib\native\win\sgx\default\debug\host\msvc-14.16.27023 | Out-Null
 
+New-Item -ItemType Directory -Path Pack\lib\native\win\sgx\default\release\enclave\clang-7 | Out-Null
+New-Item -ItemType Directory -Path Pack\lib\native\win\sgx\default\release\host\msvc-14.16.27023 | Out-Null
 
-New-Item -ItemType Directory -Path Pack\lib\native\win\sgx\legacy\debug\enclave\clang-7 | Out-Null
-New-Item -ItemType Directory -Path Pack\lib\native\win\sgx\legacy\debug\host\msvc-14.16.27023 | Out-Null
-
-New-Item -ItemType Directory -Path Pack\lib\native\win\sgx\legacy\release\enclave\clang-7 | Out-Null
-New-Item -ItemType Directory -Path Pack\lib\native\win\sgx\legacy\release\host\msvc-14.16.27023 | Out-Null
-
-
-New-Item -ItemType Directory -Path Pack\lib\native\win\sgx\flc\debug\enclave\clang-7 | Out-Null
-New-Item -ItemType Directory -Path Pack\lib\native\win\sgx\flc\debug\host\msvc-14.16.27023 | Out-Null
-
-New-Item -ItemType Directory -Path Pack\lib\native\win\sgx\flc\release\enclave\clang-7 | Out-Null
-New-Item -ItemType Directory -Path Pack\lib\native\win\sgx\flc\release\host\msvc-14.16.27023 | Out-Null
-
-
-New-Item -ItemType Directory -Path Pack\tools\win\legacy | Out-Null
-New-Item -ItemType Directory -Path Pack\tools\win\flc | Out-Null
+New-Item -ItemType Directory -Path Pack\tools\win\default | Out-Null
 
 
 $LibCopyRules | ForEach-Object {
@@ -81,10 +65,7 @@ $LibCopyRules | ForEach-Object {
     Pop-Location
 }
 
-Copy-Includes Legacy Debug
-Copy-Includes Legacy Release
-Copy-Includes FLC Debug
-Copy-Includes FLC Release
+Copy-Includes Default Debug
+Copy-Includes Default Release
 
-Copy-Tools Legacy
-Copy-Tools FLC
+Copy-Tools Default

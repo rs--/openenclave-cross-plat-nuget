@@ -75,7 +75,7 @@ function copy-optee-tools {
     OS_CODENAME=$1
 
     SRC_ARM64_BASE=$PWD/build/$OS_CODENAME/sdk/optee/3.6.0/vexpress-qemu_armv8a/release/expand/opt/openenclave
-    SRC_X64_BASE=$PWD/build/$OS_CODENAME/sdk/sgx/legacy/release/expand/opt/openenclave
+    SRC_X64_BASE=$PWD/build/$OS_CODENAME/sdk/sgx/default/release/expand/opt/openenclave
     DST_BASE=$PWD/pack/tools/linux/$OS_CODENAME/optee
 
     mkdir -p $DST_BASE/arm64
@@ -96,40 +96,30 @@ copy-optee-libs bionic ls-ls1012grapeboard release 5
 copy-optee-libs bionic vexpress-qemu_armv8a debug 5
 copy-optee-libs bionic vexpress-qemu_armv8a release 5
 
-copy-sgx-libs xenial legacy debug 7
-copy-sgx-libs xenial legacy release 7
-copy-sgx-libs xenial flc debug 7
-copy-sgx-libs xenial flc release 7
+copy-sgx-libs xenial default debug 7
+copy-sgx-libs xenial default release 7
 
-copy-sgx-libs bionic legacy debug 7
-copy-sgx-libs bionic legacy release 7
-copy-sgx-libs bionic flc debug 7
-copy-sgx-libs bionic flc release 7
+copy-sgx-libs bionic default debug 7
+copy-sgx-libs bionic default release 7
 
 # Copy tools
-copy-sgx-tools xenial legacy
-copy-sgx-tools xenial flc
-copy-sgx-tools bionic legacy
-copy-sgx-tools bionic flc
+copy-sgx-tools xenial default
+copy-sgx-tools bionic default
 
 copy-optee-tools xenial
 copy-optee-tools bionic
 
 # Copy includes
-copy-includes xenial sgx legacy debug
-copy-includes xenial sgx legacy release
-copy-includes xenial sgx flc debug
-copy-includes xenial sgx flc release
+copy-includes xenial sgx default debug
+copy-includes xenial sgx default release
 
 copy-includes xenial optee ls-ls1012grapeboard debug 3.6.0
 copy-includes xenial optee ls-ls1012grapeboard release 3.6.0
 copy-includes xenial optee vexpress-qemu_armv8a debug 3.6.0
 copy-includes xenial optee vexpress-qemu_armv8a release 3.6.0
 
-copy-includes bionic sgx legacy debug
-copy-includes bionic sgx legacy release
-copy-includes bionic sgx flc debug
-copy-includes bionic sgx flc release
+copy-includes bionic sgx default debug
+copy-includes bionic sgx default release
 
 copy-includes bionic optee ls-ls1012grapeboard debug 3.6.0
 copy-includes bionic optee ls-ls1012grapeboard release 3.6.0

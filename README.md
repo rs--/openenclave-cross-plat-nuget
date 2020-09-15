@@ -58,7 +58,7 @@ This section explains how to set up both environments.
    sudo scripts/ansible/install-ansible.sh
    ansible-playbook scripts/ansible/oe-contributors-setup-cross-arm.yml
 
-   sudo apt install python3-pip p7zip-full
+   sudo apt install python3-pip p7zip-full -y
    pip3 install pycryptodome
 
    # Quit the Xenial container.
@@ -70,6 +70,7 @@ This section explains how to set up both environments.
    cd /host/path/to/sdk
    sudo scripts/ansible/install-ansible.sh
    ansible-playbook scripts/ansible/oe-contributors-setup-cross-arm.yml
+   sudo apt install python3-pyelftools p7zip-full -y
 
    # Quit the Bionic container.
    exit

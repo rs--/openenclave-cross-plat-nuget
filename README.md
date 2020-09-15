@@ -30,7 +30,7 @@ This section explains how to set up both environments.
 4. Execute the script as follows:
    ```powershell
    Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
-   .\install-windows-prereqs.ps1 -InstallPath C:/oe_prereqs -LaunchConfiguration SGX1FLC-NoDriver -DCAPClientType None
+   .\install-windows-prereqs.ps1 -InstallPath C:/oe_prereqs -LaunchConfiguration SGX1FLC-NoIntelDrivers -DCAPClientType None
    ```
 5. When prompted, reboot the system.
 

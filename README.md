@@ -81,7 +81,7 @@ This section explains how to set up both environments.
 
 To build the SDK in all its configurations:
 
-1. Launch the Visual Studio x64 Developer Tools from the Start menu.
+1. Launch the x64 Native Tools Command Prompt for VS 2017 from the Start menu.
 2. Run:
    ```cmd
    cd %SYSTEMDRIVE%\path\to\this\repository\windows

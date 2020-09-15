@@ -85,8 +85,8 @@ To build the SDK in all its configurations:
 2. Run:
    ```cmd
    cd %SYSTEMDRIVE%\path\to\this\repository\windows
-   powershell .\build.ps1
-   powershell .\pack.ps1
+   powershell -c "Set-ExecutionPolicy Bypass -Scope Process; .\build.ps1"
+   powershell -c "Set-ExecutionPolicy Bypass -Scope Process; .\pack.ps1"
    ```
 
 This creates a `Pack` directory with the build outputs.

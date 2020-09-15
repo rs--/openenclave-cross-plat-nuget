@@ -16,12 +16,17 @@ configure_container() {
 }
 
 # Initialize the two containers.
+echo Initializing build containers...
 lxc init ubuntu:16.04 oepkgxenial
 lxc init ubuntu:18.04 oepkgbionic
 
 # Configure them.
+echo Configuring build containers...
 configure_container oepkgxenial
 configure_container oepkgbionic
 
 # Start them.
+echo Starting build containers...
 lxc start oepkgxenial oepkgbionic
+
+echo Done.

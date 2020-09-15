@@ -213,7 +213,6 @@ cmake -G Ninja $OE_SDK_PATH                                    \
     -DCMAKE_BUILD_TYPE=Debug                                   \
     -DCMAKE_INSTALL_PREFIX:PATH='/opt/openenclave'             \
     -DCPACK_GENERATOR=DEB                                      \
-    -DHAS_QUOTE_PROVIDER=OFF                                   \
     -DCMAKE_TOOLCHAIN_FILE=$OE_SDK_PATH/cmake/arm-cross.cmake  \
     -DOE_TA_DEV_KIT_DIR=$DEV_KIT/export-ta_arm64 || exit 1
 ninja package || exit 1
@@ -233,7 +232,6 @@ cmake -G Ninja $OE_SDK_PATH                                    \
     -DCMAKE_BUILD_TYPE=Debug                                   \
     -DCMAKE_INSTALL_PREFIX:PATH='/opt/openenclave'             \
     -DCPACK_GENERATOR=DEB                                      \
-    -DHAS_QUOTE_PROVIDER=OFF                                   \
     -DCMAKE_TOOLCHAIN_FILE=$OE_SDK_PATH/cmake/arm-cross.cmake  \
     -DOE_TA_DEV_KIT_DIR=$DEV_KIT/export-ta_arm64 || exit 1
 ninja package || exit 1
@@ -253,7 +251,6 @@ cmake -G Ninja $OE_SDK_PATH                                    \
     -DCMAKE_BUILD_TYPE=Release                                 \
     -DCMAKE_INSTALL_PREFIX:PATH='/opt/openenclave'             \
     -DCPACK_GENERATOR=DEB                                      \
-    -DHAS_QUOTE_PROVIDER=OFF                                   \
     -DCMAKE_TOOLCHAIN_FILE=$OE_SDK_PATH/cmake/arm-cross.cmake  \
     -DOE_TA_DEV_KIT_DIR=$DEV_KIT/export-ta_arm64 || exit 1
 ninja package || exit 1
@@ -273,7 +270,6 @@ cmake -G Ninja $OE_SDK_PATH                                    \
     -DCMAKE_BUILD_TYPE=Release                                 \
     -DCMAKE_INSTALL_PREFIX:PATH='/opt/openenclave'             \
     -DCPACK_GENERATOR=DEB                                      \
-    -DHAS_QUOTE_PROVIDER=OFF                                   \
     -DCMAKE_TOOLCHAIN_FILE=$OE_SDK_PATH/cmake/arm-cross.cmake  \
     -DOE_TA_DEV_KIT_DIR=$DEV_KIT/export-ta_arm64 || exit 1
 ninja package || exit 1

@@ -15,7 +15,7 @@ sudo usermod -aG lxd $USER
 
 # Allow mapping the default user inside the LXC containers to the current host
 # user.
-echo Enabling user mapping (container->host)...
+echo Enabling user mapping...
 echo root:$UID:1 | sudo tee -a /etc/subuid /etc/subgid
 
 echo Done.

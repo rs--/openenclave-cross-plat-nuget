@@ -122,7 +122,7 @@ copy into it the following two files from the SDK:
 To create the NuGet package, navigate to the root of the merged `pack` directory
 and run:
 
-```
+```bash
 # The extension informs 7z as to the type of archive to create.
 7z a -mm=Deflate -mx=9 -mmt=8 -mfb=258 -mpass=15 -r out.zip .
 mv out.zip open-enclave-cross.0.11.0-rc1-cbe4dedc-1.nupkg

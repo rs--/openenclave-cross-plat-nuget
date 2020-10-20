@@ -1,5 +1,10 @@
 #!/bin/bash
 
+OS_CODENAME=$(cat /etc/os-release | grep UBUNTU_CODENAME | cut -d= -f2)
+if [[ $OS_CODENAME == "" ]]; then
+    OS_CODENAME="xenial"
+fi
+
 if [ -d pack ]; then
     rm -rf pack
 fi
@@ -86,42 +91,25 @@ function copy-optee-tools {
 }
 
 # Copy libraries
-copy-optee-libs xenial ls-ls1012grapeboard debug 5
-copy-optee-libs xenial ls-ls1012grapeboard release 5
-copy-optee-libs xenial vexpress-qemu_armv8a debug 5
-copy-optee-libs xenial vexpress-qemu_armv8a release 5
+copy-optee-libs $OS_CODENAME ls-ls1012grapeboard debug 5
+copy-optee-libs $OS_CODENAME ls-ls1012grapeboard release 5
+copy-optee-libs $OS_CODENAME vexpress-qemu_armv8a debug 5
+copy-optee-libs $OS_CODENAME vexpress-qemu_armv8a release 5
 
-copy-optee-libs bionic ls-ls1012grapeboard debug 5
-copy-optee-libs bionic ls-ls1012grapeboard release 5
-copy-optee-libs bionic vexpress-qemu_armv8a debug 5
-copy-optee-libs bionic vexpress-qemu_armv8a release 5
-
-copy-sgx-libs xenial default debug 7
-copy-sgx-libs xenial default release 7
-
-copy-sgx-libs bionic default debug 7
-copy-sgx-libs bionic default release 7
+copy-sgx-libs $OS_CODENAME default debug 7
+copy-sgx-libs $OS_CODENAME default release 7
 
 # Copy tools
-copy-sgx-tools xenial default
-copy-sgx-tools bionic default
+copy-sgx-tools $OS_CODENAME default
 
-copy-optee-tools xenial
-copy-optee-tools bionic
+copy-optee-tools $OS_CODENAME
+
 
 # Copy includes
-copy-includes xenial sgx default debug
-copy-includes xenial sgx default release
+copy-includes $OS_CODENAME sgx default debug
+copy-includes $OS_CODENAME sgx default release
 
-copy-includes xenial optee ls-ls1012grapeboard debug 3.6.0
-copy-includes xenial optee ls-ls1012grapeboard release 3.6.0
-copy-includes xenial optee vexpress-qemu_armv8a debug 3.6.0
-copy-includes xenial optee vexpress-qemu_armv8a release 3.6.0
-
-copy-includes bionic sgx default debug
-copy-includes bionic sgx default release
-
-copy-includes bionic optee ls-ls1012grapeboard debug 3.6.0
-copy-includes bionic optee ls-ls1012grapeboard release 3.6.0
-copy-includes bionic optee vexpress-qemu_armv8a debug 3.6.0
-copy-includes bionic optee vexpress-qemu_armv8a release 3.6.0
+copy-includes $OS_CODENAME optee ls-ls1012grapeboard debug 3.6.0
+copy-includes $OS_CODENAME optee ls-ls1012grapeboard release 3.6.0
+copy-includes $OS_CODENAME optee vexpress-qemu_armv8a debug 3.6.0
+copy-includes $OS_CODENAME optee vexpress-qemu_armv8a release 3.6.0

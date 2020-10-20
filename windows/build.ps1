@@ -7,7 +7,7 @@ $ErrorActionPreference = "Stop"
 
 If (-not (Test-Path -Path SDK))
 {
-    git clone --recursive --depth=1 https://github.com/openenclave/openenclave SDK -b v0.11.0-rc1
+    git clone --recursive --depth=1 https://github.com/openenclave/openenclave SDK -b v0.12.x
 }
 
 $SDK_PATH = (Join-Path -Path $PWD -ChildPath SDK)
